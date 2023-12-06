@@ -1,0 +1,15 @@
+rich
+click
+SQLAlchemy
+python-dotenv
+Django
+djangorestframework
+django-environ
+psycopg2-binary
+Pillow
+django-crispy-forms
+requests
+pandas
+reportlab
+python-decouple
+prompt_toolkit
