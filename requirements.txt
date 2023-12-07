@@ -13,3 +13,5 @@ pandas
 reportlab
 python-decouple
 prompt_toolkit
+pandas
+matplotlib

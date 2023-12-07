@@ -31,18 +31,17 @@ class StudentContactInfo:
 @dataclass
 class StudentAcademicInfo:
     # Academic information
+    academic_id: int
     student_id: int
-    enrollment_date: datetime  # Date of student's enrollment
-    grade_level: str  # Grade level
-    previous_school: Optional[str] = None  # Name of the previous school attended
-    extracurricular_activities: Optional[List[str]] = None  # List of extracurricular activities
-    disciplinary_record: Optional[List[str]] = None  # Record of disciplinary actions
-    attendance_record: Optional[List[str]] = None  # Record of attendance
-    grades: Optional[dict] = None  # Academic grades
-    scholarships: Optional[List[str]] = None  # Information about scholarships received
-    scholarship_details: Optional[str] = None  # Details of any scholarships or financial aid
-    school_email: Optional[str] = None  # School-issued email address
-    login_credentials: Optional[dict] = None  # Credentials for accessing school systems
+    previous_school: Optional[str] = None
+    extracurricular_activities: Optional[str] = None
+    disciplinary_record: Optional[str] = None
+    attendance_record: Optional[str] = None
+    grades: Optional[str] = None
+    scholarships: Optional[str] = None
+    scholarship_details: Optional[str] = None
+    school_email: Optional[str] = None
+    login_credentials: Optional[str] = None
 
 
 @dataclass
@@ -55,15 +54,16 @@ class StudentBillingInfo:
 
 @dataclass
 class StudentHealthInfo:
-    # Helth and emergency information
+    # Health and emergency information
+    health_id: int
     student_id: int
-    emergency_contact_name: Optional[str] = None  # Name of emergency contact
-    emergency_contact_relationship: Optional[str] = None  # Relationship to the student
-    emergency_contact_phone: Optional[str] = None  # Emergency contact phone number
-    medical_conditions: Optional[str] = None  # Known medical conditions
-    allergies: Optional[str] = None  # Known allergies
-    photo: Optional[str] = None  # Link to a photograph of the student
-    parent_guardian_names: Optional[List[str]] = None  # Names of parents or guardians
+    emergency_contact_name: str
+    emergency_contact_relationship: str
+    emergency_contact_phone: str
+    parent_guardian_names: str
+    medical_conditions: Optional[str] = None
+    allergies: Optional[str] = None
+    photo: Optional[str] = None
 
 
 @dataclass
@@ -98,25 +98,24 @@ class Enrollment:
 
 @dataclass
 class Billing:
-    invoice_id: int  # Unique identifier for the invoice
-    student_id: int  # ID of the student being billed
-    amount_due: float  # Amount due
-    due_date: datetime  # Due date for the payment, determined by the fee table
-    status: str  # Payment status (e.g., "Paid", "Pending", "Overdue")
-    payment_method: Optional[str] = None  # Bank transfer, cash, etc
-    payment_date: Optional[datetime] = None  # Date payment was made
+    invoice_id: int
+    student_id: int
+    amount_due: float
+    payment_method: Optional[str] = None
+    payment_date: Optional[str] = None
     notes: Optional[str] = None
 
 
 @dataclass
 class MonthlyFeeTable:
-    fee_id: str  # Unique identifier for the fee structure
-    student_id: int  # ID of the student being billed
-    amount: float  # Amount to be paid
-    month: dict  # 01: Jan, 02: Feb, ...
-    due_day_of_month: int  # Day of the month when payment is due
+    fee_id: int
+    amount: float
+    due_day_of_month: int
+    currency: str
+    month: int
+    month_desc: str
+    type: str
     notes: Optional[str] = None
-    currency: str = "USD"
 
 
 @dataclass

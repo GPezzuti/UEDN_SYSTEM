@@ -99,17 +99,24 @@ CREATE TABLE IF NOT EXISTS Billing (
     FOREIGN KEY (student_id) REFERENCES Students (student_id)
 );
 
-CREATE TABLE MonthlyFeeTable (
+CREATE TABLE IF NOT EXISTS MonthlyFeeTable (
 	fee_id INTEGER,
-	amount_due REAL,
+	amount REAL,
 	due_day_of_month INTEGER,
 	notes TEXT,
 	currency TEXT,
 	month INTEGER NOT NULL,
 	month_desc TEXT NOT NULL,
-	table_level TEXT NOT NULL,
-	grade TEXT NOT NULL,
-	period TEXT NOT NULL,
 	type TEXT NOT NULL,
 	PRIMARY KEY(fee_id AUTOINCREMENT)
+);
+
+CREATE TABLE IF NOT EXISTS MonthlyFeeTableCatalog (
+    catalog_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fee_id INTEGER,
+    level TEXT NOT NULL,
+    class_level TEXT NOT NULL,
+    period TEXT NOT NULL,
+    type TEXT NOT NULL,
+    FOREIGN KEY (fee_id) REFERENCES MonthlyFeeTable (fee_id)
 );
