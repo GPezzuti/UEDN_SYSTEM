@@ -3,29 +3,27 @@ CREATE TABLE IF NOT EXISTS Students (
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     middle_name TEXT,
-    date_of_birth TEXT,
-    gender TEXT,
-    nationality TEXT
+    date_of_birth TEXT NOT NULL,
+    gender TEXT NOT NULL,
+    nationality TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS StudentContactInfo (
     contact_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
-    email TEXT,
-    phone_number TEXT,
-    address TEXT,
-    city TEXT,
-    state TEXT,
-    country TEXT,
-    postal_code TEXT,
+    email TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    address TEXT NOT NULL,
+    city TEXT NOT NULL,
+    state TEXT NOT NULL,
+    country TEXT NOT NULL,
+    postal_code TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES Students (student_id)
 );
 
 CREATE TABLE IF NOT EXISTS StudentAcademicInfo (
     academic_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
-    enrollment_date TEXT,
-    grade_level TEXT,
     previous_school TEXT,
     extracurricular_activities TEXT,
     disciplinary_record TEXT,
@@ -42,7 +40,7 @@ CREATE TABLE IF NOT EXISTS StudentBillingInfo (
     billing_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
     fee_id INTEGER,
-    tuition_status TEXT,
+    tuition_status TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES Students (student_id),
     FOREIGN KEY (fee_id) REFERENCES MonthlyFeeTable (fee_id)
 );
@@ -50,13 +48,13 @@ CREATE TABLE IF NOT EXISTS StudentBillingInfo (
 CREATE TABLE IF NOT EXISTS StudentHealthInfo (
     health_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
-    emergency_contact_name TEXT,
-    emergency_contact_relationship TEXT,
-    emergency_contact_phone TEXT,
+    emergency_contact_name TEXT NOT NULL,
+    emergency_contact_relationship TEXT NOT NULL,
+    emergency_contact_phone TEXT NOT NULL,
     medical_conditions TEXT,
     allergies TEXT,
     photo TEXT,
-    parent_guardian_names TEXT,
+    parent_guardian_names TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES Students (student_id)
 );
 
@@ -84,8 +82,9 @@ CREATE TABLE IF NOT EXISTS Enrollments (
     enrollment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
     course_id INTEGER,
-    enrollment_date TEXT,
-    grade TEXT,
+    enrollment_date TEXT NOT NULL,
+    grade_level TEXT NOT NULL,
+    grade TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES Students (student_id),
     FOREIGN KEY (course_id) REFERENCES Courses (course_id)
 );
@@ -93,19 +92,24 @@ CREATE TABLE IF NOT EXISTS Enrollments (
 CREATE TABLE IF NOT EXISTS Billing (
     invoice_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
-    amount_due REAL,
-    due_date TEXT,
-    status TEXT,
+    amount REAL,
     payment_method TEXT,
     payment_date TEXT,
     notes TEXT,
     FOREIGN KEY (student_id) REFERENCES Students (student_id)
 );
 
-CREATE TABLE IF NOT EXISTS MonthlyFeeTable (
-    fee_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    amount REAL,
-    due_day_of_month INTEGER,
-    notes TEXT,
-    currency TEXT
+CREATE TABLE MonthlyFeeTable (
+	fee_id INTEGER,
+	amount_due REAL,
+	due_day_of_month INTEGER,
+	notes TEXT,
+	currency TEXT,
+	month INTEGER NOT NULL,
+	month_desc TEXT NOT NULL,
+	table_level TEXT NOT NULL,
+	grade TEXT NOT NULL,
+	period TEXT NOT NULL,
+	type TEXT NOT NULL,
+	PRIMARY KEY(fee_id AUTOINCREMENT)
 );
