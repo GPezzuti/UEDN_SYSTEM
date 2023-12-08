@@ -120,3 +120,10 @@ CREATE TABLE IF NOT EXISTS MonthlyFeeTableCatalog (
     type TEXT NOT NULL,
     FOREIGN KEY (fee_id) REFERENCES MonthlyFeeTable (fee_id)
 );
+
+CREATE TABLE IF NOT EXISTS Users (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    hashed_password TEXT NOT NULL,
+    role TEXT NOT NULL  -- e.g., 'admin', 'user'
+);

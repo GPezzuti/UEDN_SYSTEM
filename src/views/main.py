@@ -36,7 +36,8 @@ def main_menu():
             "[1] Estudiantes",
             "[2] Facturación",
             "[3] Reportes",
-            "[4] Notificaciones"
+            "[4] Notificaciones",
+            "[5] Salir"
         ]
 
         # Create Panels that wrap closely around the text
@@ -54,6 +55,10 @@ def main_menu():
             pass
         elif choice == "4":
             pass
+        elif choice == "5":
+            clear_console()
+            console.print("OK")
+            break
         else:
             console.print("Opción Incorrecta\n", style="bold red", justify="center")
             time.sleep(1)

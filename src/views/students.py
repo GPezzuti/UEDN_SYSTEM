@@ -1,14 +1,9 @@
-import time
-from rich.panel import Panel
-from rich.columns import Columns
-from rich.align import Align
 from prompt_toolkit import prompt
+from rich.align import Align
+from rich.columns import Columns
+from rich.panel import Panel
+
 from src.utils.helpers import *
-from src.config import *
-from rich.console import Console
-from rich.table import Table
-import pandas as pd
-import sqlite3
 
 console = Console()
 

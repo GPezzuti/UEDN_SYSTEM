@@ -1,6 +1,18 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from datetime import datetime
+import bcrypt
+
+
+@dataclass
+class User:
+    user_id: int
+    username: str
+    hashed_password: str  # Store only hashed passwords
+    role: str
+
+    def verify_password(self, input_password):
+        return bcrypt.checkpw(input_password.encode(), self.hashed_password.encode())
 
 
 @dataclass
