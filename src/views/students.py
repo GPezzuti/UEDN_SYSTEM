@@ -23,11 +23,12 @@ def students_menu():
                           for item in student_menu_items]
 
         console.print(Align.center(Columns(student_panels)))
-        display_student_dashboard()
 
         choice = prompt("\nElige una opción: ")
-        if choice == "1":  # TODO: Add logic
-            paginate_dataframe()
+        if choice == "1":
+            console.clear()
+            console.print("test\n", style="green")
+            paginate_dataframe("Estudiantes", 10, 10)
         elif choice == "2":
             print("Nuevo Ingreso")
         elif choice == "3":
@@ -35,7 +36,3 @@ def students_menu():
         else:
             console.print("Opción Incorrecta\n", style="bold red", justify="center")
             time.sleep(1)
-
-
-def display_student_dashboard():
-    console.print("\n[Dashboard]", style="bold magenta", justify="center")
