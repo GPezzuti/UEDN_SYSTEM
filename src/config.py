@@ -1,23 +1,4 @@
-import os
-from pathlib import Path
-
-
-def get_desktop_path():
-    # Get the home directory
-    home = Path.home()
-
-    # Append the Desktop folder depending on the OS
-    if os.name == 'nt':  # Windows
-        desktop = home / 'Desktop'
-    elif os.name == 'posix':  # macOS and Linux
-        # On macOS, it's also in the home directory
-        # On Linux, this might vary, but usually it's in the home directory
-        desktop = home / 'Desktop'
-    else:
-        raise OSError('Unsupported operating system.')
-
-    return desktop
-
+from src.utils.helpers import get_desktop_path
 
 DESKTOP_PATH = get_desktop_path()
 DB_PATH = '../src/database/school_management_system.db'

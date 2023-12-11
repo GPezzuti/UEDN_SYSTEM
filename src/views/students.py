@@ -1,8 +1,10 @@
+import datetime
 from prompt_toolkit import prompt
 from rich.align import Align
 from rich.columns import Columns
 from rich.panel import Panel
-
+from src.config import STUDENTS_COLUMNS, DESKTOP_PATH
+from src.controllers.students_controller import get_students_data, add_new_student
 from src.utils.helpers import *
 
 console = Console()
