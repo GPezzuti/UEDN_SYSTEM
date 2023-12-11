@@ -20,6 +20,7 @@ def get_desktop_path():
 
 
 DESKTOP_PATH = get_desktop_path()
+DB_PATH = '../src/database/school_management_system.db'
 
 STUDENTS_COLUMNS = [
     # Columns from the Students table

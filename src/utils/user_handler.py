@@ -1,6 +1,7 @@
 import getpass
 import sqlite3
 import bcrypt
+from src.config import DB_PATH
 
 
 def register_user():
@@ -19,7 +20,7 @@ def register_user():
 
         # Try to insert the new user into the database
         try:
-            with sqlite3.connect('../src/database/school_management_system.db') as conn:
+            with sqlite3.connect(DB_PATH) as conn:
                 cursor = conn.cursor()
                 insert_query = "INSERT INTO Users (username, hashed_password, role) VALUES (?, ?, ?)"
                 cursor.execute(insert_query, (username, hashed_password, role))
