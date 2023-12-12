@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from datetime import datetime
-import bcrypt
+import re
 
 
 @dataclass
@@ -11,8 +11,9 @@ class User:
     hashed_password: str  # Store only hashed passwords
     role: str
 
-    def verify_password(self, input_password):
-        return bcrypt.checkpw(input_password.encode(), self.hashed_password.encode())
+    def is_admin(self):
+        """Check if the user is an admin."""
+        return self.role == 'admin'
 
 
 @dataclass
@@ -26,6 +27,14 @@ class StudentBasicInfo:
     nationality: str  # Student's nationality
     middle_name: Optional[str] = None  # Student's middle name, if any
 
+    def validate_student_basic_info(self):
+        if not self.first_name: raise ValueError("First name is required")
+        if not self.last_name: raise ValueError("Last name is required")
+        if not isinstance(self.date_of_birth, datetime): raise ValueError("Invalid date of birth")
+        if self.gender not in ['Male', 'Female']: raise ValueError("Invalid gender")
+        if not self.nationality: raise ValueError("Nationality is required")
+        # Additional checks as needed...
+
 
 @dataclass
 class StudentContactInfo:
@@ -38,6 +47,16 @@ class StudentContactInfo:
     state: str  # State of the student's residence
     country: str  # Country of the student's residence
     postal_code: str  # Postal code of the student's residence
+
+    def validate_email(self):
+        # Simple regex for email validation
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", self):
+            raise ValueError("Invalid email format")
+
+    def validate_student_contact_info(self):
+        validate_email(self.email)
+        if not self.phone_number: raise ValueError("Phone number is required")
+        # Additional checks for address, city, etc...
 
 
 @dataclass
@@ -59,9 +78,10 @@ class StudentAcademicInfo:
 @dataclass
 class StudentBillingInfo:
     # Billing information
+    billing_id: int
     student_id: int
     fee_id: str  # Identifier for monthly fee structure
-    tuition_status: Optional[str] = None  # Status of tuition payments
+    tuition_status: str  # Status of tuition payments
 
 
 @dataclass

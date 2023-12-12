@@ -4,20 +4,10 @@ import time
 import bcrypt
 from rich.console import Console
 from src.config import DB_PATH
+from src.database.models import User
 from src.utils.helpers import clear_console
 
 console = Console()
-
-
-def hash_password(password):
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-
-
-def verify_password(password, hashed):
-    # Ensure both password and hashed are byte strings
-    password_bytes = password.encode()
-    hashed_bytes = hashed.encode() if isinstance(hashed, str) else hashed
-    return bcrypt.checkpw(password_bytes, hashed_bytes)
 
 
 def login():
@@ -25,16 +15,20 @@ def login():
         clear_console()
         console.print("\nInicio de sesión\n", style="bold magenta")
         choice = str(input("Ingrese 1 para usuario existente, 2 para registrar usuario, 0 para salir: ").strip().lower())
+
         if choice == "1":
             clear_console()
             username = input("Usuario: ")
             password = getpass.getpass("Clave: ")  # Password will not be echoed
 
-            # Verify user credentials. This is a placeholder function.
+            # Verify user credentials.
             if verify_user_credentials(username, password):
+                console.print("Login exitoso!", style="bold green")
+                return get_user_data(username)
+                time.sleep(1)
                 break
             else:
-                console.print("Credenciales inválidas, intente de nuevo.", style="bold red")
+                console.print("Credenciales Inválidas", style="bold red")
                 time.sleep(1)
 
         elif choice == "2":
@@ -43,7 +37,7 @@ def login():
                 username = input("Usuario: ")
                 password = getpass.getpass("Clave: ")  # Password will not be echoed
 
-                if verify_user_credentials(username, password) and (get_user_role(username) == "admin"):
+                if verify_user_credentials(username, password) and get_user_data(username).is_admin():
                     console.print("\nRegistro de usuario:", style="green")
                     register_user()
                     time.sleep(1)
@@ -71,17 +65,31 @@ def verify_user_credentials(username, password):
     if result:
         hashed_password = result[0]
         return verify_password(password, hashed_password)
-    return False
+
+    else:
+        console.print("Error al obtener los datos del usuario.", style="bold red")
+        return False
 
 
-def get_user_role(username):
+def verify_password(password, hashed):
+    # Ensure both password and hashed are byte strings
+    password_bytes = password.encode()
+    hashed_bytes = hashed.encode() if isinstance(hashed, str) else hashed
+    return bcrypt.checkpw(password_bytes, hashed_bytes)
+
+
+def get_user_data(username):
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT role FROM Users WHERE username = ?", (username,))
-        result = cursor.fetchone()
+        cursor.execute("SELECT user_id, username, hashed_password, role FROM Users WHERE username = ?", (username,))
+        user_data = cursor.fetchone()
 
-    if result:
-        return result[0]  # Return the role
+    if user_data:
+        # Create an User instance
+        return User(user_id=user_data[0], username=user_data[1],
+                    hashed_password=user_data[2], role=user_data[3])
+    else:
+        console.print("Error al obtener los datos del usuario.", style="bold red")
 
 
 def register_user():
@@ -92,7 +100,7 @@ def register_user():
 
         # Ensure the role is valid
         if role not in ["admin", "user"]:
-            print("Entrada inválida. Por favor, ingrese 'admin' o 'user'.")
+            console.print("\nEntrada inválida. Por favor, ingrese 'admin' o 'user'.\n", style="bold red")
             continue
 
         # Hash the password
@@ -106,9 +114,9 @@ def register_user():
                 cursor.execute(insert_query, (username, hashed_password, role))
                 conn.commit()
 
-                print(f"Usuario creado exitosamente.\n")
+                console.print(f"Usuario creado exitosamente.\n", style="cyan")
                 break
 
         except sqlite3.IntegrityError:
-            print("El nombre de usuario ya está en uso. Por favor, elija uno diferente.\n")
+            console.print("El nombre de usuario ya está en uso. Por favor, elija uno diferente.\n", style="bold yellow")
             continue

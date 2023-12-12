@@ -9,5 +9,5 @@ from src.views.main import main_menu
 from src.controllers.login_controller import login
 
 if __name__ == "__main__":
-    login()
+    logged_in_user = login()
     main_menu()
