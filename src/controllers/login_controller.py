@@ -24,17 +24,20 @@ def login():
             # Verify user credentials.
             if verify_user_credentials(username, password):
                 console.print("Login exitoso!", style="bold green")
-                return get_user_data(username)
                 time.sleep(1)
-                break
+                return get_user_data(username)
             else:
                 console.print("Credenciales Inválidas", style="bold red")
                 time.sleep(1)
 
         elif choice == "2":
             while True:
-                console.print("\nIngrese un usuario administrador", style="cyan")
+                console.print("\nIngrese un usuario administrador:", style="cyan")
+                console.print("Ingrese 'q' en cualquier momento para regresar.\n", style="yellow")
+
                 username = input("Usuario: ")
+                if username == 'q':
+                    break
                 password = getpass.getpass("Clave: ")  # Password will not be echoed
 
                 if verify_user_credentials(username, password) and get_user_data(username).is_admin():
@@ -67,7 +70,6 @@ def verify_user_credentials(username, password):
         return verify_password(password, hashed_password)
 
     else:
-        console.print("Error al obtener los datos del usuario.", style="bold red")
         return False
 
 
@@ -85,16 +87,20 @@ def get_user_data(username):
         user_data = cursor.fetchone()
 
     if user_data:
-        # Create an User instance
+        # Create a User instance
         return User(user_id=user_data[0], username=user_data[1],
                     hashed_password=user_data[2], role=user_data[3])
     else:
-        console.print("Error al obtener los datos del usuario.", style="bold red")
+        return False
 
 
 def register_user():
     while True:
-        username = input("Ingrese el nombre de usuario: ").strip().lower()
+        username = input("Ingrese el nombre de usuario: ")
+
+        if username == 'q':
+            break
+
         password = getpass.getpass("Ingrese la clave: ")  # Password will not be echoed
         role = input("Ingrese el rol: (admin/user): ").strip().lower()
 

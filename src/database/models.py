@@ -3,7 +3,7 @@ from typing import List, Optional
 from datetime import datetime
 import re
 
-
+# TODO: Add validation on all classes or use a filling form
 @dataclass
 class User:
     user_id: int
@@ -25,15 +25,8 @@ class StudentBasicInfo:
     date_of_birth: datetime  # Student's date of birth
     gender: str  # Student's gender
     nationality: str  # Student's nationality
+    id: Optional[int] = None  # Student's national ID
     middle_name: Optional[str] = None  # Student's middle name, if any
-
-    def validate_student_basic_info(self):
-        if not self.first_name: raise ValueError("First name is required")
-        if not self.last_name: raise ValueError("Last name is required")
-        if not isinstance(self.date_of_birth, datetime): raise ValueError("Invalid date of birth")
-        if self.gender not in ['Male', 'Female']: raise ValueError("Invalid gender")
-        if not self.nationality: raise ValueError("Nationality is required")
-        # Additional checks as needed...
 
 
 @dataclass
@@ -47,16 +40,6 @@ class StudentContactInfo:
     state: str  # State of the student's residence
     country: str  # Country of the student's residence
     postal_code: str  # Postal code of the student's residence
-
-    def validate_email(self):
-        # Simple regex for email validation
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", self):
-            raise ValueError("Invalid email format")
-
-    def validate_student_contact_info(self):
-        validate_email(self.email)
-        if not self.phone_number: raise ValueError("Phone number is required")
-        # Additional checks for address, city, etc...
 
 
 @dataclass
@@ -92,7 +75,16 @@ class StudentHealthInfo:
     emergency_contact_name: str
     emergency_contact_relationship: str
     emergency_contact_phone: str
+    emergency_contact_id: int
+    father_name: str
+    father_phone: str
+    father_id: int
+    mother_name: str
+    mother_phone: str
+    mother_id: int
     parent_guardian_names: str
+    parent_guardian_phone: str
+    parent_guardian_id: str
     medical_conditions: Optional[str] = None
     allergies: Optional[str] = None
     photo: Optional[str] = None

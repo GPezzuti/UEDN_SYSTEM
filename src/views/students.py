@@ -45,7 +45,7 @@ def students_menu():
                 df = get_students_data()
 
                 # Define the filename with a timestamp
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                 filename = f"{DESKTOP_PATH}/estudiantes_{timestamp}.csv"
                 # Save the DataFrame to a CSV file
                 df.to_csv(filename, index=False)

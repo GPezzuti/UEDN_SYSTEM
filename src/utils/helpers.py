@@ -118,3 +118,7 @@ def remove_duplicated_columns(df):
     seen = set()
     return df.loc[:, ~df.columns.duplicated()]
 
+
+def input_or_none(prompt_text):
+    user_input = input(prompt_text)
+    return None if user_input == '' else user_input

@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 from rich.console import Console
 from src.config import DB_PATH
-from src.utils.helpers import remove_duplicated_columns
+from src.utils.helpers import remove_duplicated_columns, input_or_none
 
 console = Console()
 
@@ -24,33 +24,33 @@ def get_students_data():
 
 def add_new_student(): # TODO: Refactor using the models
     console.print("\nIngrese la información básica del estudiante", style="bold magenta")
-    first_name = input("Nombre: ")
-    last_name = input("Apellido: ")
-    middle_name = input("Segundo nombre (opcional): ")
-    date_of_birth = input("Fecha de nacimiento (YYYY-MM-DD): ")
-    gender = input("Género: ")
-    nationality = input("Nacionalidad: ")
+    first_name = input_or_none("Nombre: ")
+    last_name = input_or_none("Apellido: ")
+    middle_name = input_or_none("Segundo nombre (opcional): ")
+    date_of_birth = input_or_none("Fecha de nacimiento (YYYY-MM-DD): ")
+    gender = input_or_none("Género: ")
+    nationality = input_or_none("Nacionalidad: ")
 
     console.print("\nIngrese la información de contacto del estudiante", style="bold magenta")
-    email = input("Email: ")
-    phone_number = input("Número de teléfono: ")
-    address = input("Dirección: ")
-    city = input("Ciudad: ")
-    state = input("Estado/Provincia: ")
-    country = input("País: ")
-    postal_code = input("Código Postal: ")
+    email = input_or_none("Email: ")
+    phone_number = input_or_none("Número de teléfono: ")
+    address = input_or_none("Dirección: ")
+    city = input_or_none("Ciudad: ")
+    state = input_or_none("Estado/Provincia: ")
+    country = input_or_none("País: ")
+    postal_code = input_or_none("Código Postal: ")
 
     console.print("\nIngrese la información académica del estudiante", style="bold magenta")
-    previous_school = input("Escuela anterior (opcional): ")
-    extracurricular_activities = input("Actividades extracurriculares (opcional): ")
+    previous_school = input_or_none("Escuela anterior (opcional): ")
+    extracurricular_activities = input_or_none("Actividades extracurriculares (opcional): ")
 
     console.print("\nIngrese la información de salud del estudiante", style="bold magenta")
-    emergency_contact_name = input("Nombre del contacto de emergencia: ")
-    emergency_contact_relationship = input("Relación con el contacto de emergencia: ")
-    emergency_contact_phone = input("Teléfono del contacto de emergencia: ")
-    parent_guardian_names = input("Nombre del representante: ")
-    medical_conditions = input("Condiciones médicas (opcional): ")
-    allergies = input("Alergias (opcional): ")
+    emergency_contact_name = input_or_none("Nombre del contacto de emergencia: ")
+    emergency_contact_relationship = input_or_none("Relación con el contacto de emergencia: ")
+    emergency_contact_phone = input_or_none("Teléfono del contacto de emergencia: ")
+    parent_guardian_names = input_or_none("Nombre del representante: ")
+    medical_conditions = input_or_none("Condiciones médicas (opcional): ")
+    allergies = input_or_none("Alergias (opcional): ")
 
     # Insert into the database
     insert_student(first_name, last_name, middle_name, date_of_birth, gender, nationality,
@@ -94,6 +94,6 @@ def insert_student(first_name, last_name, middle_name, date_of_birth, gender, na
         conn.commit()
 
     except sqlite3.Error as e:
-        console.print(f"An error occurred: {e}", style="bold red")
+        console.print(f"Error de inserción: {e}", style="bold red")
     finally:
         conn.close()

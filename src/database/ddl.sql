@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS Students (
     date_of_birth TEXT NOT NULL,
     gender TEXT NOT NULL,
     nationality TEXT NOT NULL
+    id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS StudentContactInfo (
@@ -51,6 +52,16 @@ CREATE TABLE IF NOT EXISTS StudentHealthInfo (
     emergency_contact_name TEXT NOT NULL,
     emergency_contact_relationship TEXT NOT NULL,
     emergency_contact_phone TEXT NOT NULL,
+    emergency_contact_id INTEGER NOT NULL,
+    father_name: TEXT,
+    father_phone: INTEGER,
+    father_id: INTEGER,
+    mother_name: TEXT NOT NULL,
+    mother_phone: INTEGER NOT NULL,
+    mother_id: INTEGER NOT NULL,
+    parent_guardian_names TEXT NOT NULL,
+    parent_guardian_phone INTEGER NOT NULL,
+    parent_guardian_id INTEGER NOT NULL,
     medical_conditions TEXT,
     allergies TEXT,
     photo TEXT,
