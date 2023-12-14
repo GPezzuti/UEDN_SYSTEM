@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS Students (
     middle_name TEXT,
     date_of_birth TEXT NOT NULL,
     gender TEXT NOT NULL,
-    nationality TEXT NOT NULL
-    id INTEGER
+    nationality TEXT NOT NULL,
+    national_id INTEGER UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS StudentContactInfo (
@@ -53,19 +53,18 @@ CREATE TABLE IF NOT EXISTS StudentHealthInfo (
     emergency_contact_relationship TEXT NOT NULL,
     emergency_contact_phone TEXT NOT NULL,
     emergency_contact_id INTEGER NOT NULL,
-    father_name: TEXT,
-    father_phone: INTEGER,
-    father_id: INTEGER,
-    mother_name: TEXT NOT NULL,
-    mother_phone: INTEGER NOT NULL,
-    mother_id: INTEGER NOT NULL,
+    father_name TEXT,
+    father_phone INTEGER,
+    father_id INTEGER,
+    mother_name TEXT NOT NULL,
+    mother_phone INTEGER NOT NULL,
+    mother_id INTEGER NOT NULL,
     parent_guardian_names TEXT NOT NULL,
     parent_guardian_phone INTEGER NOT NULL,
     parent_guardian_id INTEGER NOT NULL,
     medical_conditions TEXT,
     allergies TEXT,
     photo TEXT,
-    parent_guardian_names TEXT NOT NULL,
     FOREIGN KEY (student_id) REFERENCES Students (student_id)
 );
 
@@ -111,25 +110,23 @@ CREATE TABLE IF NOT EXISTS Billing (
 );
 
 CREATE TABLE IF NOT EXISTS MonthlyFeeTable (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
 	fee_id INTEGER,
 	amount REAL,
 	due_day_of_month INTEGER,
 	notes TEXT,
 	currency TEXT,
 	month INTEGER NOT NULL,
-	month_desc TEXT NOT NULL,
-	type TEXT NOT NULL,
-	PRIMARY KEY(fee_id AUTOINCREMENT)
+	month_desc TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS MonthlyFeeTableCatalog (
     catalog_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    fee_id INTEGER,
     level TEXT NOT NULL,
     class_level TEXT NOT NULL,
     period TEXT NOT NULL,
     type TEXT NOT NULL,
-    FOREIGN KEY (fee_id) REFERENCES MonthlyFeeTable (fee_id)
+    FOREIGN KEY (catalog_id) REFERENCES MonthlyFeeTable (fee_id)
 );
 
 CREATE TABLE IF NOT EXISTS Users (

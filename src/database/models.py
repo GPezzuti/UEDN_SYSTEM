@@ -25,7 +25,7 @@ class StudentBasicInfo:
     date_of_birth: datetime  # Student's date of birth
     gender: str  # Student's gender
     nationality: str  # Student's nationality
-    id: Optional[int] = None  # Student's national ID
+    national_id: Optional[int] = None  # Student's national ID
     middle_name: Optional[str] = None  # Student's middle name, if any
 
 
@@ -145,7 +145,6 @@ class MonthlyFeeTable:
 @dataclass
 class MonthlyFeeTableCatalog:
     catalog_id: int  # Catalog ID
-    fee_id: str  # Unique identifier for the fee structure
     level: str  # Basic, Primary or Secondary
     class_level: str  # Class level the fee applies to, i.e: 1st, 2nd
     period: str  # 2023-2024, ...

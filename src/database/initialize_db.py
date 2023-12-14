@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-db_file = 'school_management_system.db'
+db_file = 'school_management_system_v2.db'
 ddl_file = 'ddl.sql'
 
 
