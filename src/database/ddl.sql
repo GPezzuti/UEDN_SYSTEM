@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS StudentContactInfo (
     contact_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
     email TEXT NOT NULL,
-    phone_number TEXT NOT NULL,
+    phone_number INTEGER NOT NULL,
     address TEXT NOT NULL,
     city TEXT NOT NULL,
     state TEXT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS StudentHealthInfo (
     student_id INTEGER,
     emergency_contact_name TEXT NOT NULL,
     emergency_contact_relationship TEXT NOT NULL,
-    emergency_contact_phone TEXT NOT NULL,
+    emergency_contact_phone INTEGER NOT NULL,
     emergency_contact_id INTEGER NOT NULL,
     father_name TEXT,
     father_phone INTEGER,
@@ -111,13 +111,14 @@ CREATE TABLE IF NOT EXISTS Billing (
 
 CREATE TABLE IF NOT EXISTS MonthlyFeeTable (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-	fee_id INTEGER,
-	amount REAL,
-	due_day_of_month INTEGER,
-	notes TEXT,
-	currency TEXT,
-	month INTEGER NOT NULL,
-	month_desc TEXT NOT NULL
+    fee_id INTEGER,
+    amount REAL,
+    due_day_of_month INTEGER,
+    notes TEXT,
+    currency TEXT,
+    month INTEGER NOT NULL,
+    month_desc TEXT NOT NULL,
+    FOREIGN KEY (fee_id) REFERENCES MonthlyFeeTableCatalog (catalog_id)
 );
 
 CREATE TABLE IF NOT EXISTS MonthlyFeeTableCatalog (
@@ -125,8 +126,7 @@ CREATE TABLE IF NOT EXISTS MonthlyFeeTableCatalog (
     level TEXT NOT NULL,
     class_level TEXT NOT NULL,
     period TEXT NOT NULL,
-    type TEXT NOT NULL,
-    FOREIGN KEY (catalog_id) REFERENCES MonthlyFeeTable (fee_id)
+    type TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Users (

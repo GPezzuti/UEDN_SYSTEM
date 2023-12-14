@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Optional
 from datetime import datetime
-import re
+
 
 # TODO: Add validation on all classes or use a filling form
 @dataclass
@@ -34,7 +34,7 @@ class StudentContactInfo:
     # Contact information
     student_id: int  # Unique identifier for the student
     email: str  # Student's email address
-    phone_number: str  # Student's phone number
+    phone_number: int  # Student's phone number
     address: str  # Student's residential address
     city: str  # City of the student's residence
     state: str  # State of the student's residence
@@ -132,6 +132,7 @@ class Billing:
 
 @dataclass
 class MonthlyFeeTable:
+    id: int
     fee_id: int
     amount: float
     due_day_of_month: int
