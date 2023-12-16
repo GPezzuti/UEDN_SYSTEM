@@ -1,7 +1,9 @@
+from pathlib import Path
 from src.utils.helpers import get_desktop_path
 
 DESKTOP_PATH = get_desktop_path()
-DB_PATH = '../src/database/school_management_system_v2.db'
+DB_PATH = Path('../src/database/school_management_system_v2.db').resolve()
+FILE_PATH = DESKTOP_PATH / 'Información de contacto.csv'
 
 STUDENTS_COLUMNS = [
     # Columns from the Students table

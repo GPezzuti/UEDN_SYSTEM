@@ -3,8 +3,8 @@ from prompt_toolkit import prompt
 from rich.align import Align
 from rich.columns import Columns
 from rich.panel import Panel
-from src.config import STUDENTS_COLUMNS, DESKTOP_PATH
-from src.controllers.students_controller import get_students_data, add_new_student
+from src.config import STUDENTS_COLUMNS, DESKTOP_PATH, FILE_PATH
+from src.controllers.students_controller import get_students_data, parse_and_insert_student_data
 from src.utils.helpers import *
 
 console = Console()
@@ -34,9 +34,13 @@ def students_menu():
             paginate_dataframe(df, "Estudiantes", STUDENTS_COLUMNS, 10, 10)
 
         elif choice == "2":
-            add_new_student()
-            console.print("Registro Exitoso\n", style="bold green", justify="center")
-            time.sleep(1)
+            console.print("Asegúrese de tener el formulario de nuevo ingreso en el escritorio.", style="bold yellow")
+            choice = prompt("Desea continuar? (S/N): ").strip().lower()
+            if choice == "s":
+                parse_and_insert_student_data(FILE_PATH)
+                time.sleep(1)
+            else:
+                continue
 
         elif choice == "3":
             user_input = str(input("¿Desea exportar todos los estudiantes a Excel? (S/N): ").strip().lower())

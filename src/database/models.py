@@ -33,8 +33,6 @@ class StudentBasicInfo:
 class StudentContactInfo:
     # Contact information
     student_id: int  # Unique identifier for the student
-    email: str  # Student's email address
-    phone_number: int  # Student's phone number
     address: str  # Student's residential address
     city: str  # City of the student's residence
     state: str  # State of the student's residence
@@ -47,6 +45,9 @@ class StudentAcademicInfo:
     # Academic information
     academic_id: int
     student_id: int
+    enrollment_date: str
+    grade_level: str
+    grade: str
     previous_school: Optional[str] = None
     extracurricular_activities: Optional[str] = None
     disciplinary_record: Optional[str] = None
@@ -83,41 +84,12 @@ class StudentHealthInfo:
     mother_phone: str
     mother_id: int
     parent_guardian_names: str
+    parent_contact_relationship: str
     parent_guardian_phone: str
     parent_guardian_id: str
     medical_conditions: Optional[str] = None
     allergies: Optional[str] = None
     photo: Optional[str] = None
-
-
-@dataclass
-class Teacher:
-    teacher_id: int  # Unique identifier for the teacher
-    first_name: str  # Teacher's first name
-    last_name: str  # Teacher's last name
-    email: str  # Teacher's email address
-    phone_number: str  # Teacher's phone number
-    department: str  # Department to which the teacher belongs
-    middle_name: Optional[str] = None  # Teacher's middle name, if any
-    qualifications: Optional[List[str]] = None  # List of qualifications
-
-
-@dataclass
-class Course:
-    course_id: int  # Unique identifier for the course
-    name: str  # Name of the course
-    teacher_id: int  # ID of the teacher assigned to the course
-    schedule: str  # Schedule details (e.g., "Mon-Wed 10:00-12:00")
-    description: Optional[str] = None  # Brief description of the course
-
-
-@dataclass
-class Enrollment:
-    enrollment_id: int  # Unique identifier for the enrollment
-    student_id: int  # ID of the enrolled student
-    course_id: int  # ID of the course in which the student is enrolled
-    enrollment_date: datetime  # Date of enrollment
-    grade: Optional[str] = None  # Grade (if applicable)
 
 
 @dataclass
@@ -132,7 +104,6 @@ class Billing:
 
 @dataclass
 class MonthlyFeeTable:
-    id: int
     fee_id: int
     amount: float
     due_day_of_month: int

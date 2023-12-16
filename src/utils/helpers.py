@@ -120,5 +120,6 @@ def remove_duplicated_columns(df):
 
 
 def input_or_none(prompt_text):
-    user_input = input(prompt_text)
-    return None if user_input == '' else user_input
+    """Get input or return None if empty."""
+    user_input = input(prompt_text).strip()
+    return user_input if user_input else None

@@ -16,3 +16,4 @@ prompt_toolkit
 pandas
 matplotlib
 bcrypt
+unidecode
